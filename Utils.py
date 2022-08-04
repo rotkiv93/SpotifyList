@@ -6,3 +6,13 @@ def parseTrackName(trackName):
     else:
         parsedName = trackName.track.split(' - ')[0]
     return parsedName
+
+
+def getTopResults(list):
+    topResults = []
+    firstElem = list[0]
+    for track in list:
+        if (track.votes == firstElem.votes):
+            topResults.append(track)
+
+    return topResults

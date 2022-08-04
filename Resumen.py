@@ -4,7 +4,7 @@ import pymsteams
 import os
 from datetime import datetime
 from PollAnalyzer import getAllPollAnalytics
-from Utils import parseTrackName
+from Utils import parseTrackName, getTopResults
 from dotenv import load_dotenv
 
 # GET .env VARIABLES
@@ -156,12 +156,22 @@ section3Title = '<h1 style="text-align:center;font-size:45px;color:#4287f5;" > <
 section3TextWinner = '<h2 style="text-align:center;font-size:30px;color:#fcba03;" > &#11088 &#11088 El ganador de la semana &#11088 &#11088 </h2> <br/>'
 section3TextLoser = '<h2 style="text-align:center;font-size:30px;color:#fc4103;">&#10060 &#10060 El perdedor de la semana &#10060 &#10060</h2> <br/>'
 
-# Getting winner track name
-winnerTrackName = parseTrackName(analytics['pollWinner']['Tracks'][0])
-loserTrackName = parseTrackName(analytics['pollLoser']['Tracks'][0])
+# Getting winners and losers track name
+winnersTrackName = []
+losersTrackName = []
 
+resWinners = getTopResults(analytics['pollWinner']['Tracks'])
+resLosers = getTopResults(analytics['pollLoser']['Tracks'])
+
+for track in resWinners:
+    winnersTrackName.append(parseTrackName(track))
+
+for track in resLosers:
+    losersTrackName.append(parseTrackName(track))
+
+# Setting the winner section
 for track in Tracks:
-    if (track.trackName == winnerTrackName):
+    if (track.trackName in winnersTrackName):
         section3TextWinner += '<div style="text-align:center;" align="center"> <img style="width:200px;" src="' + \
             track.addedByImg + '"> </img><img style="width:200px;" src="' + \
             track.trackImg + '"></img></div>'
@@ -169,9 +179,11 @@ for track in Tracks:
             track.addedbById + ' - ' + track.trackName + \
             ' - ' + track.artistName + '</b></h1> <h2 style="color:#fcba03" > Con ' + \
             str(analytics['pollWinner']['Tracks']
-                [0].votes) + ' votos </h2> </div>'
+                [0].votes) + ' votos </h2> <br/> </div>'
 
-    if (track.trackName == loserTrackName):
+# Setting the loser section
+for track in Tracks:
+    if (track.trackName in losersTrackName):
         section3TextLoser += '<div style="text-align:center;" align="center"> <img style="width:200px;" src="' + \
             track.addedByImg + '"> </img><img style="width:200px;" src="' + \
             track.trackImg + '"></img></div>'
@@ -179,7 +191,7 @@ for track in Tracks:
             track.addedbById + ' - ' + track.trackName + \
             ' - ' + track.artistName + '</b></h1> <h2 style="color:#fc4103" > Con ' + \
             str(analytics['pollLoser']['Tracks']
-                [0].votes) + ' votos </b> </h2> </div>'
+                [0].votes) + ' votos </b> </h2> <br/> </div>'
 
 Section3.text("<div> " + section3Title + section3TextWinner +
               "<br/>" + section3TextLoser + "</div>")
