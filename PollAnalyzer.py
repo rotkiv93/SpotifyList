@@ -8,7 +8,7 @@ load_dotenv()
 
 ENDPOINT = "https://api.strawpoll.com/v3"
 API_KEY = "YOUR_API_KEY"
-MONGODB_URL = os.environ.get('MONGODB_URL')
+MONGODB_URL = os.getenv('MONGODB_URL')
 
 class Track():
     def __init__(self):

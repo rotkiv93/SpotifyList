@@ -9,10 +9,10 @@ from dotenv import load_dotenv
 
 # GET .env VARIABLES
 load_dotenv()
-SPOTIFY_CLIENT_ID = os.environ.get('SPOTIFY_CLIENT_ID')
-SPOTIFY_CLIENT_SECRET = os.environ.get('SPOTIFY_CLIENT_SECRET')
-TEAMS_WEBHOOK_URL = os.environ.get('TEAMS_WEBHOOK_URL')
-TEAMS_WEBHOOK_URL_TEST = os.environ.get('TEAMS_WEBHOOK_URL_TEST')
+SPOTIFY_CLIENT_ID = os.getenv('SPOTIFY_CLIENT_ID')
+SPOTIFY_CLIENT_SECRET = os.getenv('SPOTIFY_CLIENT_SECRET')
+TEAMS_WEBHOOK_URL = os.getenv('TEAMS_WEBHOOK_URL')
+TEAMS_WEBHOOK_URL_TEST = os.getenv('TEAMS_WEBHOOK_URL_TEST')
 
 client_credentials_manager = SpotifyClientCredentials(
     client_id=SPOTIFY_CLIENT_ID, client_secret=SPOTIFY_CLIENT_SECRET)
