@@ -15,6 +15,8 @@ POLL_API_KEY = os.environ.get('POLL_API_KEY')
 ## GET THE SPOTIFY LIST INFORMATION ##
 SPOTIFY_CLIENT_ID = os.environ.get('SPOTIFY_CLIENT_ID')
 SPOTIFY_CLIENT_SECRET = os.environ.get('SPOTIFY_CLIENT_SECRET')
+TEAMS_WEBHOOK_URL = os.environ.get('TEAMS_WEBHOOK_URL')
+TEAMS_WEBHOOK_URL_TEST = os.environ.get('TEAMS_WEBHOOK_URL_TEST')
 
 client_credentials_manager = SpotifyClientCredentials(
     client_id=SPOTIFY_CLIENT_ID, client_secret=SPOTIFY_CLIENT_SECRET)
@@ -125,8 +127,7 @@ if responseWinner and responseLoser:
     pollWinner = responseWinner.json()  # response is Poll object
     pollLoser = responseLoser.json()  # response is Poll object
 
-    myTeamsMessage = pymsteams.connectorcard(
-        'https://udcgal.webhook.office.com/webhookb2/7d7f1a2f-ae0a-44e0-ac50-e00805868bd7@cea1ea3e-60b2-4f75-a6c2-a6022e8f961b/IncomingWebhook/98d219312d454e978519868e649628c3/cbb6d941-6bd7-4902-9aae-d20773571071')
+    myTeamsMessage = pymsteams.connectorcard(TEAMS_WEBHOOK_URL_TEST)
 
     # Add color to the message
     myTeamsMessage.color('#e655bd')
