@@ -4,13 +4,14 @@ import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 from datetime import datetime
 import pymsteams
-import pickle
+import pymongo
 from dotenv import load_dotenv
 
 # GET .env VARIABLES
 load_dotenv()
 ENDPOINT = "https://api.strawpoll.com/v3"
 POLL_API_KEY = os.environ.get('POLL_API_KEY')
+MONGODB_URL = os.environ.get('MONGO_DB_URL')
 
 ## GET THE SPOTIFY LIST INFORMATION ##
 SPOTIFY_CLIENT_ID = os.environ.get('SPOTIFY_CLIENT_ID')
@@ -158,9 +159,9 @@ if responseWinner and responseLoser:
         "urlWinner": pollWinner["url"],
         "urlLoser": pollLoser["url"]
     }
-    afile = open('poll_id.pkl', 'wb')
-    pickle.dump(urls, afile)
-    afile.close()
+
+    client = pymongo.MongoClient(MONGODB_URL)
+    client.get_collection("polls").update_one({}, {"$set": {"pollWinners": pollWinner["url"], "pollLosers": pollLoser["url"]}})
 
 else:
     errorWinner = responseWinner.json()
