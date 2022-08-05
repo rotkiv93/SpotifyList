@@ -36,11 +36,11 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       env: 
-        MONGODB_URL: '${{ secrets.MONGODB_URL}}'
-        POLL_API_KEY: '${{ secrets.POLL_API_KEY}}'
-        SPOTIFY_CLIENT_ID: '${{ secrets.SPOTIFY_CLIENT_ID}}'
-        SPOTIFY_CLIENT_SECRET: '${{ secrets.SPOTIFY_CLIENT_SECRET}}'
-        TEAMS_WEBHOOK_URL: '${{ secrets.TEAMS_WEBHOOK_URL}}'
-        TEAMS_WEBHOOK_URL_TEST: '{{ secrets.TEAMS_WEBHOOK_URL_TEST}}'
+        MONGODB_URL: ${{ secrets.MONGODB_URL}}
+        POLL_API_KEY: ${{ secrets.POLL_API_KEY}}
+        SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID}}
+        SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET}}
+        TEAMS_WEBHOOK_URL: ${{ secrets.TEAMS_WEBHOOK_URL}}
+        TEAMS_WEBHOOK_URL_TEST: ${{ secrets.TEAMS_WEBHOOK_URL_TEST}}
       run: |
         python Resumen.py
