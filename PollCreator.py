@@ -161,7 +161,7 @@ if responseWinner and responseLoser:
     }
 
     client = pymongo.MongoClient(MONGODB_URL)
-    client.get_collection("polls").update_one({}, {"$set": {"pollWinners": pollWinner["url"], "pollLosers": pollLoser["url"]}})
+    client["test"]["polls"].update_one({}, {"$set": {"pollWinners": pollWinner["url"], "pollLosers": pollLoser["url"]}})
 
 else:
     errorWinner = responseWinner.json()
