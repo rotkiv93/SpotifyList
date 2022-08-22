@@ -8,7 +8,7 @@ load_dotenv()
 
 ENDPOINT = "https://api.strawpoll.com/v3"
 API_KEY = "YOUR_API_KEY"
-MONGODB_URL = os.getenv('MONGODB_URL')
+MONGODB_URL = os.getenv('MONGO_DB_URL')
 
 class Track():
     def __init__(self):
@@ -27,8 +27,8 @@ def getAllPollAnalytics():
     ## LOAD BOTH PERSISTED POLLS ##
     cliente = pymongo.MongoClient(MONGODB_URL)
     db = cliente.test
-    res = db.get_collection("polls").find_one({"_id": ObjectId("62ecf75c5ed9490e6d49d193")})
-    
+    res = db.get_collection("polls").find_one({"_id": ObjectId("630367dfc8fa5342204d59d2")})
+
     # Use "NPgxkzPqrn2" for an example without participants
     pollUrlWinner = res["pollWinners"].split('/')[-1]
     pollUrlLoser = res["pollLosers"].split('/')[-1]
